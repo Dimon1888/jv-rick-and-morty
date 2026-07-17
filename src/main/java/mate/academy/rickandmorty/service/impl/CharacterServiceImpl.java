@@ -8,6 +8,7 @@ import mate.academy.rickandmorty.exception.EntityNotFoundException;
 import mate.academy.rickandmorty.mapper.CharacterMapper;
 import mate.academy.rickandmorty.repository.CharacterRepository;
 import mate.academy.rickandmorty.service.CharacterService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,9 +25,10 @@ public class CharacterServiceImpl implements CharacterService {
             throw new EntityNotFoundException("No characters available in the local database.");
         }
 
-        long randomId = random.nextLong(count) + 1;
-        return characterRepository.findById(randomId)
-                // Якщо типи збігаються, цей метод-референс працюватиме ідеально:
+        int randomIndex = random.nextInt((int) count);
+        return characterRepository.findAll(PageRequest.of(randomIndex, 1))
+                .stream()
+                .findFirst()
                 .map(characterMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Character not found."));
     }
@@ -34,7 +36,6 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public List<CharacterDto> searchByName(String name) {
         return characterRepository.findAllByNameContainingIgnoreCase(name).stream()
-                // Тут також використовується посилання на метод:
                 .map(characterMapper::toDto)
                 .toList();
     }
