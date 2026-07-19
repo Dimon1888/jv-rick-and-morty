@@ -2,9 +2,15 @@ package mate.academy.rickandmorty.service;
 
 import java.util.List;
 import mate.academy.rickandmorty.dto.CharacterDto;
+import mate.academy.rickandmorty.dto.CharacterSearchParametersDto;
+import org.springframework.data.domain.Pageable;
 
 public interface CharacterService {
-    CharacterDto getRandomCharacter();
+    List<CharacterDto> getAll(Pageable pageable);
 
-    List<CharacterDto> searchByName(String name);
+    List<CharacterDto> search(CharacterSearchParametersDto searchParameters, Pageable pageable);
+
+    CharacterDto getCharacterById(Long id);
+
+    CharacterDto getRandomCharacter();
 }

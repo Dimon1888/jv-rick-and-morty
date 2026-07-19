@@ -1,4 +1,4 @@
-package mate.academy.rickandmorty.repository.book;
+package mate.academy.rickandmorty.repository.character;
 
 import org.springframework.data.jpa.domain.Specification;
 

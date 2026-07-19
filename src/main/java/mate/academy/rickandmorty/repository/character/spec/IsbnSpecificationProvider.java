@@ -1,14 +1,14 @@
-package mate.academy.rickandmorty.repository.book.spec;
+package mate.academy.rickandmorty.repository.character.spec;
 
 import java.util.Arrays;
 import mate.academy.rickandmorty.model.Book;
-import mate.academy.rickandmorty.repository.book.SpecificationProvider;
+import mate.academy.rickandmorty.repository.character.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthorSpecificationProvider implements SpecificationProvider<Book> {
-    public static final String KEY = "author";
+public class IsbnSpecificationProvider implements SpecificationProvider<Book> {
+    public static final String KEY = "isbn";
 
     @Override
     public String getKey() {
@@ -17,7 +17,7 @@ public class AuthorSpecificationProvider implements SpecificationProvider<Book> 
 
     @Override
     public Specification<Book> getSpecification(String[] params) {
-        return (root, query, criteriaBuilder) -> root.get("author")
+        return (root, query, criteriaBuilder) -> root.get("isbn")
                 .in(Arrays.stream(params).toArray());
     }
 }
